@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-import ProductControllers from "./controllers/product.controllers.js";
+import ProductControllers from "./src/controllers/product.controllers.js";
 
 const products = new ProductControllers();
 
@@ -19,3 +19,9 @@ app.use((err, req, res, next) => {
 });
 
 export default app;
+
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running. Use our API on port: ${PORT}`);
+});
