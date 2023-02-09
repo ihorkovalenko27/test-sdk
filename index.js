@@ -1,27 +1,32 @@
-import express from "express";
-import cors from "cors";
-
 import ProductControllers from "./src/controllers/product.controllers.js";
 
 const products = new ProductControllers();
 
-const app = express();
+// console.log(await products.getAllProducts());
 
-app.use(cors());
-app.use(express.json());
+// console.log(await products.getProductsById(10));
 
-app.get("/products", products.getAllProducts);
-app.get("/products/:id", products.getProductsById);
-app.post("/products", products.addNewProduct);
+// console.log(
+//   await products.addNewProduct({
+//     title: "iPhone 10",
+//     description: "An apple mobile which is nothing like apple",
+//     price: 549,
+//   })
+// );
 
-app.use((err, req, res, next) => {
-  res.status(500).json({ message: err.message });
-});
+// console.log(await products.deleteProduct(3));
 
-export default app;
+// console.log(
+//   await products.updateProduct(10, {
+//     title: "iPhone 14",
+//     description: "An apple mobile which is nothing like apple",
+//     price: 2000,
+//   })
+// );
 
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running. Use our API on port: ${PORT}`);
-});
+// console.log(
+//   await products.loginUser({
+//     username: "kminchelle",
+//     password: "0lelplR",
+//   })
+// );
