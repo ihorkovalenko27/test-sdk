@@ -30,3 +30,9 @@ const products = new ProductControllers();
 //     password: "0lelplR",
 //   })
 // );
+
+// console.log(await products.searchProduct("car"));
+
+// console.log(await products.filterSelectProducts("title"));
+
+// console.log(await products.getCategoryProducts("smartphones"));

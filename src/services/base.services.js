@@ -1,4 +1,4 @@
-class BaseModel {
+class BaseServices {
   constructor(baseUrl, category) {
     this.baseUrl = baseUrl;
     this.category = category;
@@ -55,4 +55,4 @@ class BaseModel {
   }
 }
 
-export default BaseModel;
+export default BaseServices;

@@ -22,6 +22,57 @@ class ProductControllers {
   }
 
   /**
+   * Find search product.
+   * @param {string} query - The query for search.
+=   * @return {object} - data about query request.
+   */
+  async searchProduct(query) {
+    try {
+      const result = await productServices.searchProduct(query);
+      return result;
+    } catch (error) {
+      return {
+        code: error.code,
+        message: error.message,
+      };
+    }
+  }
+
+  /**
+   * Filter product with selected fields.
+   * @param {string} value - The fields for search.
+   * @return {object} - data about filter request.
+   */
+  async filterSelectProducts(value) {
+    try {
+      const result = await productServices.filterSelectProducts(value);
+      return result;
+    } catch (error) {
+      return {
+        code: error.code,
+        message: error.message,
+      };
+    }
+  }
+
+  /**
+   * Filter product with selected category.
+   * @param {string} category - The category for search.
+   * @return {object} - data about category request.
+   */
+  async getCategoryProducts(category) {
+    try {
+      const result = await productServices.getCategoryProducts(category);
+      return result;
+    } catch (error) {
+      return {
+        code: error.code,
+        message: error.message,
+      };
+    }
+  }
+
+  /**
    * Get all products data.
    * @return {object} - object with products data.
    */
