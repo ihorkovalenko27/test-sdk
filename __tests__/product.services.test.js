@@ -14,11 +14,9 @@ describe("testISProductServices", () => {
   test("Shoud_ThrowError_When_Remove_Product", async () => {
     jest.spyOn(BaseModel.prototype, "delete").mockReturnValueOnce(null);
 
-    try {
-      async () => await ProductServices.prototype.deleteProduct(1);
-    } catch (error) {
-      expect(error).toThrow(ApiError);
-    }
+    const result = async () => await ProductServices.prototype.deleteProduct(1);
+
+    expect(() => result()).rejects.toThrow(ApiError);
   });
 
   test("Shoud_Create_Product", async () => {
@@ -44,11 +42,9 @@ describe("testISProductServices", () => {
 
     jest.spyOn(BaseModel.prototype, "create").mockReturnValueOnce(null);
 
-    try {
-      async () => await ProductServices.prototype.addNewProduct(product);
-    } catch (error) {
-      expect(error).toThrow(ApiError);
-    }
+    result = async () => await ProductServices.prototype.addNewProduct(product);
+
+    expect(() => result()).rejects.toThrow(ApiError);
   });
 
   test("Shoud_Update_Product", async () => {
@@ -74,10 +70,9 @@ describe("testISProductServices", () => {
 
     jest.spyOn(BaseModel.prototype, "update").mockReturnValueOnce(null);
 
-    try {
-      async () => await ProductServices.prototype.updateProduct(15, product);
-    } catch (error) {
-      expect(error).toThrow(ApiError);
-    }
+    const result = async () =>
+      await ProductServices.prototype.updateProduct(15, product);
+
+    expect(() => result()).rejects.toThrow(ApiError);
   });
 });
