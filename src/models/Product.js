@@ -1,12 +1,15 @@
 class Product {
-  constructor({ id, title, description, price }) {
+  constructor({ id = "id", title = "title", description = "desc", price = 1 }) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.price = price;
   }
 
-  validateBody() {
+  validate() {
+    if (typeof this.id !== "string" || this.id === "") {
+      throw new Error("Product id field must to be a string and not empty!");
+    }
     if (typeof this.title !== "string" || this.title === "") {
       throw new Error("Title field must to be a string and not empty!");
     }
@@ -19,12 +22,6 @@ class Product {
       throw new Error(
         "Product price field must be a number and more than zero"
       );
-    }
-  }
-
-  validateID() {
-    if (typeof this.id !== "string" || this.id === "") {
-      throw new Error("Product id field must to be a string and not empty!");
     }
   }
 }

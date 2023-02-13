@@ -22,7 +22,7 @@ class ProductControllers {
   async getProductsById(id) {
     return ctrlWrapper(
       productServices.getProductsById(id),
-      new Product({ id }).validateID()
+      new Product({ id }).validate()
     );
   }
   /**
@@ -33,7 +33,7 @@ class ProductControllers {
   async addNewProduct(body) {
     return ctrlWrapper(
       productServices.addNewProduct(body),
-      new Product(body).validateBody()
+      new Product(body).validate()
     );
   }
 
@@ -45,7 +45,7 @@ class ProductControllers {
   async deleteProduct(id) {
     return ctrlWrapper(
       productServices.deleteProduct(id),
-      new Product({ id }).validateID()
+      new Product({ id }).validate()
     );
   }
 
@@ -55,10 +55,10 @@ class ProductControllers {
    * @param {object} body - object with updated data.
    * @return {object} - product with modified data.
    */
-  async updateProduct(id, body, method) {
+  async updateProduct(body, method) {
     return ctrlWrapper(
-      productServices.updateProduct(id, body, method),
-      new Product(body).validateBody()
+      productServices.updateProduct(body, method),
+      new Product(body).validate()
     );
   }
 

@@ -22,8 +22,8 @@ const user = new UserControllers();
 
 // console.log(
 //   await products.updateProduct(
-//     10,
 //     {
+//       id: "11",
 //       title: "iPhone 14",
 //       description: "An apple mobile which is nothing like apple",
 //       price: 2500,

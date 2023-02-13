@@ -151,17 +151,13 @@ class ProductServices {
    * @throws {ApiError} - result must be non-false
    * @return {object} - product with modified data.
    */
-  async updateProduct(id, body, method) {
-    const result = await product.update(id, body, method);
-
+  async updateProduct(body, method) {
+    const result = await product.update(body, method);
     if (!result) {
-      errorlog(400, `Product with id=${id} not updated!`);
-
+      errorlog(400, `Product with id=${body.id} not updated!`);
       throw new ApiError(`Product not updated!`, 400);
     }
-
     successlog(200, `Product updated!`);
-
     return result;
   }
 }
