@@ -44,9 +44,9 @@ class BaseServices {
     return await res.json();
   }
 
-  async update(id, body) {
+  async update(id, body, method) {
     const res = await fetch(`${this.baseUrl}/${this.category}/${id}`, {
-      method: "PATCH" /* or PUT */,
+      method: method /* PATCH or PUT */,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });

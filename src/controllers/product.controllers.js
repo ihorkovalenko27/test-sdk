@@ -26,9 +26,9 @@ class ProductControllers {
    * @param {string} query - The query for search.
 =   * @return {object} - data about query request.
    */
-  async searchProduct(query) {
+  async searchProduct(data) {
     try {
-      const result = await productServices.searchProduct(query);
+      const result = await productServices.searchProduct(data);
       return result;
     } catch (error) {
       return {
@@ -43,9 +43,9 @@ class ProductControllers {
    * @param {string} value - The fields for search.
    * @return {object} - data about filter request.
    */
-  async filterSelectProducts(value) {
+  async filterSelectProducts(data) {
     try {
-      const result = await productServices.filterSelectProducts(value);
+      const result = await productServices.filterSelectProducts(data);
       return result;
     } catch (error) {
       return {
@@ -60,9 +60,9 @@ class ProductControllers {
    * @param {string} category - The category for search.
    * @return {object} - data about category request.
    */
-  async getCategoryProducts(category) {
+  async getCategoryProducts(data) {
     try {
-      const result = await productServices.getCategoryProducts(category);
+      const result = await productServices.getCategoryProducts(data);
       return result;
     } catch (error) {
       return {

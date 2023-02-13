@@ -1,9 +1,9 @@
 import BaseServices from "./base.services.js";
-import Product from "../models/Product.js";
 import { ApiError } from "../errors/errorHandler.js";
-const productModel = new Product("https://dummyjson.com", 10);
-const productBase = new BaseServices("https://dummyjson.com", "products");
-const auth = new BaseServices("https://dummyjson.com");
+import { log } from "../log/functionsLog.js";
+import { helpers as productHelpers } from "../helpers/helpers.js";
+
+const product = new BaseServices("https://dummyjson.com", "products");
 
 /** Class representing services for product. */
 class ProductServices {
@@ -14,11 +14,15 @@ class ProductServices {
    * @return {object} - user login information.
    */
   async loginUser(body) {
-    const result = await auth.login(body);
+    const result = await product.login(body);
 
     if (!result) {
+      log("error", 401, "Username or password is wrong!");
+
       throw new ApiError("Username or password is wrong!", 401);
     }
+
+    log("success", 200, "Login user");
 
     return result;
   }
@@ -29,12 +33,16 @@ class ProductServices {
    * @throws {ApiError} - result must be non-false
    * @return {object} - data about query request.
    */
-  async searchProduct(query) {
-    const result = await productModel.searchProduct(query);
+  async searchProduct(data) {
+    const result = productHelpers(data);
 
     if (!result) {
+      log("error", 400, `Query ${data.search} not found`);
+
       throw new ApiError("Product not found!", 400);
     }
+
+    log("success", 200, `Find ${data.search}`);
 
     return result;
   }
@@ -45,13 +53,16 @@ class ProductServices {
    * @throws {ApiError} - result must be non-false
    * @return {object} - data about filter request.
    */
-  async filterSelectProducts(value) {
-    const result = await productModel.searchSelectProducts(value);
+  async filterSelectProducts(data) {
+    const result = productHelpers(data);
 
     if (!result) {
+      log("error", 400, `${data.select} not found`);
+
       throw new ApiError("Products not found!", 400);
     }
 
+    log("success", 200, `Filter ${data.select} product`);
     return result;
   }
 
@@ -61,12 +72,15 @@ class ProductServices {
    * @throws {ApiError} - result must be non-false
    * @return {object} - data about category request.
    */
-  async getCategoryProducts(category) {
-    const result = await productModel.getCategoryProducts(category);
+  async getCategoryProducts(data) {
+    const result = productHelpers(data);
 
     if (!result) {
+      log("error", 400, `${data.category} not found`);
       throw new ApiError("Category not found!", 400);
     }
+
+    log("success", 200, `Find ${data.category}`);
 
     return result;
   }
@@ -76,7 +90,16 @@ class ProductServices {
    * @return {object} - object with products data.
    */
   async getAllProducts() {
-    const result = await productBase.getAll();
+    const result = await product.getAll();
+
+    if (!result) {
+      log("error", 500, `Products not found`);
+
+      throw new ApiError(`Products not found`, 500);
+    }
+
+    log("success", 200, `Get all products`);
+
     return result;
   }
 
@@ -87,11 +110,15 @@ class ProductServices {
    * @return {object} - product data.
    */
   async getProductsById(id) {
-    const result = await productBase.getById(id);
+    const result = await product.getById(id);
 
     if (!result) {
+      log("error", 400, `Product by ${id} not found`);
+
       throw new ApiError("Product doesn't exist!", 404);
     }
+
+    log("success", 200, `Get product by ${id}`);
 
     return result;
   }
@@ -103,11 +130,15 @@ class ProductServices {
    * @return {object} - new created product.
    */
   async addNewProduct(body) {
-    const result = await productBase.create(body);
+    const result = await product.create(body);
 
     if (!result) {
+      log("error", 400, `Product not created!`);
+
       throw new ApiError(`Product not created!`, 400);
     }
+
+    log("success", 201, `Product created!`);
 
     return result;
   }
@@ -119,11 +150,15 @@ class ProductServices {
    * @return {object} - deleted product with "isDeleted" & "deletedOn" keys.
    */
   async deleteProduct(id) {
-    const result = await productBase.delete(id);
+    const result = await product.delete(id);
 
     if (!result) {
+      log("error", 400, `Product with id=${id} not deleted!`);
+
       throw new ApiError(`Product not deleted!`, 400);
     }
+
+    log("success", 200, `Product deleted!`);
 
     return result;
   }
@@ -135,12 +170,16 @@ class ProductServices {
    * @throws {ApiError} - result must be non-false
    * @return {object} - product with modified data.
    */
-  async updateProduct(id, body) {
-    const result = await productBase.update(id, body);
+  async updateProduct(id, body, method) {
+    const result = await product.update(id, body, method);
 
     if (!result) {
+      log("error", 400, `Product with id=${id} not updated!`);
+
       throw new ApiError(`Product not updated!`, 400);
     }
+
+    log("success", 200, `Product updated!`);
 
     return result;
   }

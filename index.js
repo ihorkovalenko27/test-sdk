@@ -31,8 +31,10 @@ const products = new ProductControllers();
 //   })
 // );
 
-// console.log(await products.searchProduct("car"));
+// console.log(await products.searchProduct({ search: "card" }));
 
-// console.log(await products.filterSelectProducts("title"));
+// console.log(
+//   await products.filterSelectProducts({ limit: 10, select: "title" })
+// );
 
-// console.log(await products.getCategoryProducts("smartphones"));
+// console.log(await products.getCategoryProducts({ category: "smartphones" }));
