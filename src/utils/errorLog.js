@@ -1,14 +1,14 @@
 import fs from "fs/promises";
 import path from "path";
 
-const logPath = path.resolve("./src/log/log.txt");
+const logPath = path.resolve("./_log.txt");
 
 const datetime = () => new Date().toLocaleString();
 
-export async function log(status, code, message) {
+export async function errorlog(code, message) {
   try {
     const newData = {
-      status,
+      status: "error",
       code,
       message,
       time: datetime(),

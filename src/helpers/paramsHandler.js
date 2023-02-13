@@ -1,4 +1,4 @@
-export const helpers = async ({ limit, select, search, category }) => {
+export const paramsHandler = async ({ limit, select, search, category }) => {
   if (limit && select) {
     const resLimit = await fetch(
       `https://dummyjson.com/products?limit=${limit}&select=${select}`

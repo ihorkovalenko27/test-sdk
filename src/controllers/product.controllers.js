@@ -1,91 +1,17 @@
 import ProductServices from "../services/product.services.js";
+import ctrlWrapper from "../middelware/ctrlWrapper.js";
+import Product from "../models/Product.js";
 
 const productServices = new ProductServices();
 
 /** Class representing controllers for product. */
 class ProductControllers {
   /**
-   * Get login data.
-   * @param {object} body - The object has two property username and password.
-   * @return {object} - user login information.
-   */
-  async loginUser(body) {
-    try {
-      const result = await productServices.loginUser(body);
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
-  }
-
-  /**
-   * Find search product.
-   * @param {string} query - The query for search.
-=   * @return {object} - data about query request.
-   */
-  async searchProduct(data) {
-    try {
-      const result = await productServices.searchProduct(data);
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
-  }
-
-  /**
-   * Filter product with selected fields.
-   * @param {string} value - The fields for search.
-   * @return {object} - data about filter request.
-   */
-  async filterSelectProducts(data) {
-    try {
-      const result = await productServices.filterSelectProducts(data);
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
-  }
-
-  /**
-   * Filter product with selected category.
-   * @param {string} category - The category for search.
-   * @return {object} - data about category request.
-   */
-  async getCategoryProducts(data) {
-    try {
-      const result = await productServices.getCategoryProducts(data);
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
-  }
-
-  /**
    * Get all products data.
    * @return {object} - object with products data.
    */
   async getAllProducts() {
-    try {
-      const result = await productServices.getAllProducts();
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
+    return ctrlWrapper(productServices.getAllProducts());
   }
 
   /**
@@ -94,15 +20,10 @@ class ProductControllers {
    * @return {object} - product data.
    */
   async getProductsById(id) {
-    try {
-      const result = await productServices.getProductsById(id);
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
+    return ctrlWrapper(
+      productServices.getProductsById(id),
+      new Product({ id }).validateID()
+    );
   }
   /**
    * Create new product.
@@ -110,15 +31,10 @@ class ProductControllers {
    * @return {object} - new created product.
    */
   async addNewProduct(body) {
-    try {
-      const result = await productServices.addNewProduct(body);
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
+    return ctrlWrapper(
+      productServices.addNewProduct(body),
+      new Product(body).validateBody()
+    );
   }
 
   /**
@@ -127,15 +43,10 @@ class ProductControllers {
    * @return {object} - deleted product with "isDeleted" & "deletedOn" keys.
    */
   async deleteProduct(id) {
-    try {
-      const result = await productServices.deleteProduct(id);
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
+    return ctrlWrapper(
+      productServices.deleteProduct(id),
+      new Product().validateID(id)
+    );
   }
 
   /**
@@ -144,16 +55,38 @@ class ProductControllers {
    * @param {object} body - object with updated data.
    * @return {object} - product with modified data.
    */
-  async updateProduct(id, body) {
-    try {
-      const result = await productServices.updateProduct(id, body);
-      return result;
-    } catch (error) {
-      return {
-        code: error.code,
-        message: error.message,
-      };
-    }
+  async updateProduct(id, body, method) {
+    return ctrlWrapper(
+      productServices.updateProduct(id, body, method),
+      new Product().validateBody(body)
+    );
+  }
+
+  /**
+   * Find search product.
+   * @param {string} data - The query for search.
+=   * @return {object} - data about query request.
+   */
+  async searchProduct(data) {
+    return ctrlWrapper(productServices.searchProduct(data));
+  }
+
+  /**
+   * Filter product with selected fields.
+   * @param {string} value - The fields for search.
+   * @return {object} - data about filter request.
+   */
+  async filterSelectProducts(data) {
+    return ctrlWrapper(productServices.filterSelectProducts(data));
+  }
+
+  /**
+   * Filter product with selected category.
+   * @param {string} category - The category for search.
+   * @return {object} - data about category request.
+   */
+  async getCategoryProducts(data) {
+    return ctrlWrapper(productServices.getCategoryProducts(data));
   }
 }
 
