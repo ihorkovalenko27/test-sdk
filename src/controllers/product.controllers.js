@@ -45,7 +45,7 @@ class ProductControllers {
   async deleteProduct(id) {
     return ctrlWrapper(
       productServices.deleteProduct(id),
-      new Product().validateID(id)
+      new Product({ id }).validateID()
     );
   }
 
@@ -58,7 +58,7 @@ class ProductControllers {
   async updateProduct(id, body, method) {
     return ctrlWrapper(
       productServices.updateProduct(id, body, method),
-      new Product().validateBody(body)
+      new Product(body).validateBody()
     );
   }
 
