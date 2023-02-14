@@ -6,7 +6,7 @@ const user = new UserControllers();
 
 // console.log(await products.getAllProducts());
 
-// console.log(await products.getProductsById("10"));
+console.log(await products.getProductsById("10"));
 
 // console.log(
 //   await products.addNewProduct({

@@ -6,7 +6,7 @@ export const errorPath = path.resolve("./_errorLog.txt");
 
 export const datetime = () => new Date().toLocaleString();
 
-export async function successlog(status, code, message) {
+export async function logUtil(status, code, message) {
   try {
     const newData = {
       status,

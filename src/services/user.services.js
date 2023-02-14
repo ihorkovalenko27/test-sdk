@@ -1,7 +1,6 @@
 import BaseServices from "./base.services.js";
 import { ApiError } from "../helpers/errorHandler.js";
-import { successlog } from "../utils/successLog.js";
-import { errorlog } from "../utils/errorLog.js";
+import { logUtil } from "../utils/logUtil.js";
 
 const user = new BaseServices("https://dummyjson.com");
 
@@ -16,12 +15,12 @@ class UserServices {
     const result = await user.login(body);
 
     if (!result) {
-      errorlog(401, "Username or password is wrong!");
+      logUtil("error", 401, "Username or password is wrong!");
 
       throw new ApiError("Username or password is wrong!", 401);
     }
 
-    successlog(200, "Login user");
+    logUtil("success", 200, "Login user");
 
     return result;
   }
