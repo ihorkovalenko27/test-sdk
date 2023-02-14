@@ -1,9 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
 
-const logPath = path.resolve("./_log.txt");
-
-const datetime = () => new Date().toLocaleString();
+export const logPath = path.resolve("./_log.txt");
+export const datetime = () => new Date().toLocaleString();
 
 export async function successlog(code, message) {
   try {
