@@ -1,5 +1,5 @@
 import ProductServices from "../services/product.services.js";
-import ctrlWrapper from "../middelwares/ctrlWrapper.js";
+import ctrlWrapper from "../helpers/ctrlHandler.js";
 import Product from "../models/Product.js";
 
 const productServices = new ProductServices();
@@ -22,7 +22,7 @@ class ProductControllers {
   async getProductsById(id) {
     return ctrlWrapper(
       productServices.getProductsById(id),
-      new Product({ id }).validate()
+      new Product({ id })
     );
   }
   /**
@@ -31,10 +31,7 @@ class ProductControllers {
    * @return {object} - new created product.
    */
   async addNewProduct(body) {
-    return ctrlWrapper(
-      productServices.addNewProduct(body),
-      new Product(body).validate()
-    );
+    return ctrlWrapper(productServices.addNewProduct(body), new Product(body));
   }
 
   /**
@@ -43,10 +40,7 @@ class ProductControllers {
    * @return {object} - deleted product with "isDeleted" & "deletedOn" keys.
    */
   async deleteProduct(id) {
-    return ctrlWrapper(
-      productServices.deleteProduct(id),
-      new Product({ id }).validate()
-    );
+    return ctrlWrapper(productServices.deleteProduct(id), new Product({ id }));
   }
 
   /**
@@ -58,7 +52,7 @@ class ProductControllers {
   async updateProduct(body, method) {
     return ctrlWrapper(
       productServices.updateProduct(body, method),
-      new Product(body).validate()
+      new Product(body)
     );
   }
 

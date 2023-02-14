@@ -4,8 +4,6 @@ import UserControllers from "./src/controllers/user.controllers.js";
 const products = new ProductControllers();
 const user = new UserControllers();
 
-// const user = new
-
 // console.log(await products.getAllProducts());
 
 // console.log(await products.getProductsById("10"));

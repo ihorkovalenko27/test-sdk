@@ -1,8 +1,7 @@
 import BaseServices from "./base.services.js";
 import { ApiError } from "../helpers/errorHandler.js";
 import { paramsHandler } from "../helpers/paramsHandler.js";
-import { successlog } from "../utils/successLog.js";
-import { errorlog } from "../utils/errorLog.js";
+import { logUtil } from "../utils/logUtil.js";
 
 const product = new BaseServices("https://dummyjson.com", "products");
 
@@ -18,12 +17,12 @@ class ProductServices {
     const result = paramsHandler(data);
 
     if (!result) {
-      errorlog(400, `Query ${data.search} not found`);
+      logUtil("error", 400, `Query ${data.search} not found`);
 
       throw new ApiError("Product not found!", 400);
     }
 
-    successlog(200, `Find ${data.search}`);
+    logUtil("success", 200, `Find ${data.search}`);
 
     return result;
   }
@@ -38,12 +37,12 @@ class ProductServices {
     const result = paramsHandler(data);
 
     if (!result) {
-      errorlog(400, `${data.select} not found`);
+      logUtil("error", 400, `${data.select} not found`);
 
       throw new ApiError("Products not found!", 400);
     }
 
-    successlog(200, `Filter ${data.select} product`);
+    logUtil("success", 200, `Filter ${data.select} product`);
     return result;
   }
 
@@ -57,11 +56,11 @@ class ProductServices {
     const result = paramsHandler(data);
 
     if (!result) {
-      errorlog(400, `${data.category} not found`);
+      logUtil("error", 400, `${data.category} not found`);
       throw new ApiError("Category not found!", 400);
     }
 
-    successlog(200, `Find ${data.category}`);
+    logUtil("success", 200, `Find ${data.category}`);
 
     return result;
   }
@@ -74,12 +73,12 @@ class ProductServices {
     const result = await product.getAll();
 
     if (!result) {
-      errorlog(500, `Products not found`);
+      logUtil("error", 500, `Products not found`);
 
       throw new ApiError(`Products not found`, 500);
     }
 
-    successlog(200, `Get all products`);
+    logUtil("success", 200, `Get all products`);
 
     return result;
   }
@@ -94,12 +93,12 @@ class ProductServices {
     const result = await product.getById(id);
 
     if (!result) {
-      errorlog(400, `Product by ${id} not found`);
+      logUtil("error", 400, `Product by ${id} not found`);
 
       throw new ApiError("Product doesn't exist!", 404);
     }
 
-    successlog(200, `Get product by ${id}`);
+    logUtil("success", 200, `Get product by ${id}`);
 
     return result;
   }
@@ -114,12 +113,12 @@ class ProductServices {
     const result = await product.create(body);
 
     if (!result) {
-      errorlog(400, `Product not created!`);
+      logUtil("error", 400, `Product not created!`);
 
       throw new ApiError(`Product not created!`, 400);
     }
 
-    successlog(201, `Product created!`);
+    logUtil("success", 201, `Product created!`);
 
     return result;
   }
@@ -134,12 +133,12 @@ class ProductServices {
     const result = await product.delete(id);
 
     if (!result) {
-      errorlog(400, `Product with id=${id} not deleted!`);
+      logUtil("error", 400, `Product with id=${id} not deleted!`);
 
       throw new ApiError(`Product not deleted!`, 400);
     }
 
-    successlog(200, `Product deleted!`);
+    logUtil("success", 200, `Product deleted!`);
 
     return result;
   }
@@ -154,10 +153,10 @@ class ProductServices {
   async updateProduct(body, method) {
     const result = await product.update(body, method);
     if (!result) {
-      errorlog(400, `Product with id=${body.id} not updated!`);
+      logUtil("error", 400, `Product with id=${body.id} not updated!`);
       throw new ApiError(`Product not updated!`, 400);
     }
-    successlog(200, `Product updated!`);
+    logUtil("success", 200, `Product updated!`);
     return result;
   }
 }
