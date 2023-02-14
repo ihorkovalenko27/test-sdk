@@ -1,4 +1,4 @@
-## Table of contents
+# UniOne Email AP Library
 
 - [General info](#general-info)
 - [Technologies](#technologies)
@@ -19,4 +19,6 @@ Project is created with:
 
 To run this project, install it locally using npm:
 
+```
 npm install unione-email
+```
