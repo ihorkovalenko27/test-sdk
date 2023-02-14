@@ -1,5 +1,5 @@
 import UserServices from "../services/user.services.js";
-import ctrlWrapper from "../middelware/ctrlWrapper.js";
+import ctrlWrapper from "../middelwares/ctrlWrapper.js";
 import User from "../models/User.js";
 
 const user = new UserServices();

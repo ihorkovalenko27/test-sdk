@@ -1,5 +1,5 @@
 import ProductServices from "../services/product.services.js";
-import ctrlWrapper from "../middelware/ctrlWrapper.js";
+import ctrlWrapper from "../middelwares/ctrlWrapper.js";
 import Product from "../models/Product.js";
 
 const productServices = new ProductServices();
